@@ -1,38 +1,13 @@
--- x402-Avalanche Payment Verification Formal Model
--- Author: Richard Patterson (@De-ASI-INTERFACE)
--- Date: 2026-07-09
+-- x402-Avalanche Payment Verification | Author: Richard Patterson
+import X402Avalanche.Basic
 
-import Mathlib.Data.Finset.Basic
+namespace X402Avalanche.Verification
 
-namespace X402Avalanche
+def settle (a : PaymentAuth) (s : FacilitatorState) (h : verify a s) : FacilitatorState :=
+  { s with used_nonces := s.used_nonces ∪ {a.nonce} }
 
-structure CChainPayment where
-  nonce      : Nat
-  amount     : Nat
-  expires_at : Nat
-  deriving Repr
+theorem settled_nonce_recorded (a : PaymentAuth) (s : FacilitatorState) (h : verify a s)
+    : a.nonce ∈ (settle a s h).used_nonces := by
+  simp [settle, Finset.mem_union, Finset.mem_singleton]
 
-structure XChainUTXO where
-  utxo_id  : Nat
-  amount   : Nat
-  deriving Repr
-
-structure FacilitatorState where
-  used_nonces    : Finset Nat
-  consumed_utxos : Finset Nat
-  block_time     : Nat
-  deriving Repr
-
-def cchain_verify (p : CChainPayment) (s : FacilitatorState) : Prop :=
-  p.nonce ∉ s.used_nonces ∧ s.block_time ≤ p.expires_at
-
-def xchain_verify (u : XChainUTXO) (s : FacilitatorState) : Prop :=
-  u.utxo_id ∉ s.consumed_utxos
-
-theorem cchain_replay_prevented (p : CChainPayment) (s : FacilitatorState)
-    (h : cchain_verify p s) : p.nonce ∉ s.used_nonces := h.1
-
-theorem xchain_utxo_unspent (u : XChainUTXO) (s : FacilitatorState)
-    (h : xchain_verify u s) : u.utxo_id ∉ s.consumed_utxos := h
-
-end X402Avalanche
+end X402Avalanche.Verification
