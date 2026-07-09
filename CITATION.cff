@@ -1,25 +1,19 @@
 cff-version: 1.2.0
-title: "x402-Avalanche: HTTP 402 Payment-Gated Routing on Avalanche"
-message: "If you use this specification, please cite it."
+message: 'Please cite as below if using x402-Avalanche Extension.'
+title: 'x402-Avalanche: HTTP 402 Payment-Gated Routing on Avalanche'
+version: 1.0.0
+date-released: '2026-07-09'
 type: software
 authors:
   - family-names: Patterson
     given-names: Richard
     alias: De-ASI-INTERFACE
-version: 1.0.0
-date-released: "2026-07-09"
-url: "https://github.com/De-ASI-INTERFACE/x402-avalanche-extension"
+    affiliation: De-ASI-INTERFACE / QuantumTradingInfinity / richy.ai
+    country: US
+repository-code: 'https://github.com/De-ASI-INTERFACE/x402-avalanche-extension'
 license: MIT
-abstract: >
-  Canonical specification for HTTP 402 Payment-Gated Routing on Avalanche C-Chain and Subnets.
-  Exploits Snowman sub-second probabilistic finality and multi-chain architecture.
-  Authored by Richard Patterson.
-keywords:
-  - x402
-  - HTTP 402
-  - Avalanche
-  - C-Chain
-  - Snowman
-  - Subnet
-  - payment routing
-  - Richard Patterson
+abstract: >-
+  x402 HTTP 402 payment-gated routing for Avalanche C-Chain EVM and X-Chain AVM.
+  Dual payment schema supporting ERC-20 (C-Chain) and native AVAX (X-Chain/AVM),
+  Trader Joe v2.2 routing, sub-second finality gate, Lean 4 formal verification.
+keywords: [avalanche, avax, x402, http-402, c-chain, x-chain, avm, lean4, richard-patterson]
